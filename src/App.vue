@@ -10,10 +10,10 @@
     <hr>
     <div>
       <ul>
-        <li v-for="dog in dogs">{{ dog }}</li>
+        <li :key="dog" v-for="dog in dogs">{{ dog }}</li>
       </ul>
       <ul>
-        <li v-for="(rent, city) in averageRent">
+        <li :key="(rent, city)" v-for="(rent, city) in averageRent">
           The average rent in {{ city }} is ${{ rent }}
         </li>
       </ul>
@@ -26,6 +26,13 @@
     <label><input type="radio" v-model="value" value="two">Two</label>
     <label><input type="radio" v-model="value" value="three">Three</label>
     <p>You selected: {{ value }}.</p>
+    <hr>
+    <p>Current status: {{ statusFromId(status) }}</p>
+    <ul>
+      <li :key="number" v-for="number in filterPositive(numbers)">{{ number }}</li>
+    </ul>
+    <p>The sum of the positive numbers is {{ getPositiveNumbersSum() }}</p>
+    <p>Sum of all the numbers is {{ numberTotal }}.</p>
   </div>
 </template>
 
@@ -47,12 +54,37 @@ export default {
       seconds: 0,
       inputText: 'initial value',
       value: 'one',
+      status: 0,
+      numbers: [-5, 0, 2, -1, 1, 0.5],
     }
   },
   methods: {
     addToList() {
       // set to add to a list
       this.$set(this.dogs, 3, 'Arnie')
+    },
+    statusFromId(id) {
+      const status = ({
+        0: 'Asleep',
+        1: 'Eating',
+        2: 'Learning Vue'
+      })[id];
+
+      return status || 'Unknown status: ' + id;
+    },
+    filterPositive(numbers){
+      return numbers.filter((number) => number >= 0);
+    },
+    getPositiveNumbers() {
+      return this.numbers.filter((number) => number >= 0);
+    },
+    getPositiveNumbersSum() {
+      return this.getPositiveNumbers().reduce((sum, val) => sum + val);
+    }
+  },
+  computed: {
+    numberTotal() {
+      return this.numbers.reduce((sum, val) => sum + val);
     }
   }
 }
