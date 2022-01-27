@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <p v-if="hours < 12">Good Morning!</p>
-    <p v-if="hours >= 12 && hours < 18">Good Afternoon!</p>
-    <p v-if="hours >= 18">Good Evening!</p>
+    <p v-if="hours < 12">Good Morning, {{ greetee }}!</p>
+    <p v-if="hours >= 12 && hours < 18">Good Afternoon, {{ greetee }}!</p>
+    <p v-if="hours >= 18">Good Evening, {{ greetee }}!</p>
   </div>
 </template>
 
@@ -11,7 +11,8 @@ export default {
   name: 'App',
   data() {
     return {
-      hours: new Date().getHours()
+      hours: new Date().getHours(),
+      greetee: 'Preston'
     }
   }
 }
