@@ -3,6 +3,8 @@
     <p v-if="hours < 12">Good Morning, {{ greetee }}!</p>
     <p v-if="hours >= 12 && hours < 18">Good Afternoon, {{ greetee }}!</p>
     <p v-if="hours >= 18">Good Evening, {{ greetee }}!</p>
+    <p v-if="path === '/'">You're on the home page!</p>
+    <p v-else>You're on {{ path }}</p>
   </div>
 </template>
 
@@ -12,7 +14,8 @@ export default {
   data() {
     return {
       hours: new Date().getHours(),
-      greetee: 'Preston'
+      greetee: 'Preston',
+      path: location.pathname
     }
   }
 }
