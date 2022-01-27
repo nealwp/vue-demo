@@ -33,6 +33,8 @@
     </ul>
     <p>The sum of the positive numbers is {{ getPositiveNumbersSum() }}</p>
     <p>Sum of all the numbers is {{ numberTotal }}.</p>
+    <input type="number" v-model="inputVal">
+    <button v-on:click="addToNumbers()">Add To Numbers</button>
   </div>
 </template>
 
@@ -55,6 +57,7 @@ export default {
       inputText: 'initial value',
       value: 'one',
       status: 0,
+      inputVal: undefined,
       numbers: [-5, 0, 2, -1, 1, 0.5],
     }
   },
@@ -80,11 +83,22 @@ export default {
     },
     getPositiveNumbersSum() {
       return this.getPositiveNumbers().reduce((sum, val) => sum + val);
+    },
+    addToNumbers() {
+      this.numberTotal += parseInt(this.inputVal);
     }
   },
   computed: {
-    numberTotal() {
+    // computed prop can be used as an object. Neat!
+    numberTotal: {
+      get() {
       return this.numbers.reduce((sum, val) => sum + val);
+      },
+      set(newValue) {
+        const oldValue = this.numberTotal;
+        const difference = newValue - oldValue
+        this.numbers.push(difference)
+      }
     }
   }
 }
