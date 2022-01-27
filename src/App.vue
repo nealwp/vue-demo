@@ -5,6 +5,8 @@
     <p v-if="hours >= 18">Good Evening, {{ greetee }}!</p>
     <p v-if="path === '/'">You're on the home page!</p>
     <p v-else>You're on {{ path }}</p>
+    <p>The second dog in the list is {{ dogs[1] }}.</p>
+    <p>All the dogs are {{ dogs }}</p> 
   </div>
 </template>
 
@@ -15,7 +17,8 @@ export default {
     return {
       hours: new Date().getHours(),
       greetee: 'Preston',
-      path: location.pathname
+      path: location.pathname,
+      dogs: ['Radar', 'Casper', 'Lila']
     }
   }
 }
