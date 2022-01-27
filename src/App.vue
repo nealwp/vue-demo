@@ -6,7 +6,19 @@
     <p v-if="path === '/'">You're on the home page!</p>
     <p v-else>You're on {{ path }}</p>
     <p>The second dog in the list is {{ dogs[1] }}.</p>
-    <p>All the dogs are {{ dogs }}</p> 
+    <p>All the dogs are {{ dogs }}</p>
+    <hr>
+    <div>
+      <ul>
+        <li v-for="dog in dogs">{{ dog }}</li>
+      </ul>
+      <ul>
+        <li v-for="(rent, city) in averageRent">
+          The average rent in {{ city }} is ${{ rent }}
+        </li>
+      </ul>
+    </div>
+ 
   </div>
 </template>
 
@@ -18,7 +30,12 @@ export default {
       hours: new Date().getHours(),
       greetee: 'Preston',
       path: location.pathname,
-      dogs: ['Radar', 'Casper', 'Lila']
+      dogs: ['Radar', 'Casper', 'Lila'],
+      averageRent: {
+        london: 1650,
+        paris: 1730,
+        NYC: 3680
+      }
     }
   }
 }
