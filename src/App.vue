@@ -18,8 +18,14 @@
         </li>
       </ul>
     </div>
-    <button :disabled="buttonDisabled">Test Button</button>
+    <button :disabled="buttonDisabled" v-on:click="addToList()">Test Button</button>
     <p>{{ seconds }} seconds have elapsed since you opened this page.</p>
+    <input type="text" v-model="inputText">
+    <p>inputText: {{ inputText }}</p>
+    <label><input type="radio" v-model="value" value="one">One</label>
+    <label><input type="radio" v-model="value" value="two">Two</label>
+    <label><input type="radio" v-model="value" value="three">Three</label>
+    <p>You selected: {{ value }}.</p>
   </div>
 </template>
 
@@ -37,14 +43,17 @@ export default {
         paris: 1730,
         NYC: 3680
       },
-      buttonDisabled: true,
+      buttonDisabled: false,
       seconds: 0,
+      inputText: 'initial value',
+      value: 'one',
     }
   },
-  created() {
-    setInterval(() => {
-      this.seconds++;
-    }, 1000);
+  methods: {
+    addToList() {
+      // set to add to a list
+      this.$set(this.dogs, 3, 'Arnie')
+    }
   }
 }
 </script>
