@@ -18,7 +18,8 @@
         </li>
       </ul>
     </div>
- 
+    <button :disabled="buttonDisabled">Test Button</button>
+    <p>{{ seconds }} seconds have elapsed since you opened this page.</p>
   </div>
 </template>
 
@@ -35,8 +36,15 @@ export default {
         london: 1650,
         paris: 1730,
         NYC: 3680
-      }
+      },
+      buttonDisabled: true,
+      seconds: 0,
     }
+  },
+  created() {
+    setInterval(() => {
+      this.seconds++;
+    }, 1000);
   }
 }
 </script>
