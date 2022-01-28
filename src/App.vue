@@ -25,7 +25,7 @@
     <label><input type="radio" v-model="value" value="one">One</label>
     <label><input type="radio" v-model="value" value="two">Two</label>
     <label><input type="radio" v-model="value" value="three">Three</label>
-    <p>You selected: {{ value }}.</p>
+    <p>You selected: {{ value | toUpper }}.</p>
     <hr>
     <p>Current status: {{ statusFromId(status) }}</p>
     <ul>
@@ -99,6 +99,11 @@ export default {
         const difference = newValue - oldValue
         this.numbers.push(difference)
       }
+    }
+  },
+  filters: {
+    toUpper(value) {
+      return value.toUpperCase();
     }
   }
 }
