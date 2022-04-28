@@ -18,7 +18,7 @@
         </li>
       </ul>
     </div>
-    <button :disabled="buttonDisabled" v-on:click="addToList()">Test Button</button>
+    <button :disabled="buttonDisabled" @click="addToList()">Test Button</button>
     <p>{{ seconds }} seconds have elapsed since you opened this page.</p>
     <input type="text" v-model="inputText">
     <p>inputText: {{ inputText }}</p>
@@ -32,12 +32,21 @@
       <li :key="number" v-for="number in filterPositive(numbers)">{{ number }}</li>
     </ul>
     <p>The sum of the positive numbers is {{ getPositiveNumbersSum() }}</p>
-    <p>Sum of all the numbers is {{ numberTotal }}.</p>
+    <p v-blink>Sum of all the numbers is {{ numberTotal }}.</p>
     <input type="number" v-model="inputVal">
-    <button v-on:click="addToNumbers()">Add To Numbers</button>
+    <button @click="addToNumbers()">Add To Numbers</button>
+    <button @click="divVisible = !divVisible">Toggle Visibility</button>
+     <transition name="fade">
+      <div v-if="divVisible">This content is sometimes hidden</div>
+     </transition>
+     <positive-numbers></positive-numbers>
+     <color-preview color="red">this is probably red</color-preview>
+     <color-preview color="blue">this is likely blue</color-preview>
+     <price-display :price="17"></price-display>
+     <price-display :price="100" :percentage-discount="30"></price-display>
+     <display-number :number="number"></display-number>
   </div>
 </template>
-
 <script>
 export default {
   name: 'App',
@@ -59,6 +68,8 @@ export default {
       status: 0,
       inputVal: undefined,
       numbers: [-5, 0, 2, -1, 1, 0.5],
+      divVisible: false,
+      number: 0
     }
   },
   methods: {
@@ -105,6 +116,22 @@ export default {
     toUpper(value) {
       return value.toUpperCase();
     }
+  },
+  directives: {
+    blink: {
+      bind(el){
+        let isVisible = true;
+        setInterval(() => {
+          isVisible = !isVisible;
+          el.style.visibility = isVisible ? 'visible' : 'hidden';
+        }, 500)
+      }
+    }
+  },
+  created() {
+    setInterval(() => {
+      this.number++;
+    }, 1000)
   }
 }
 </script>
@@ -118,4 +145,13 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.25s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
 </style>
